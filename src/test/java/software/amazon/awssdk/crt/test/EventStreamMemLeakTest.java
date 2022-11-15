@@ -53,6 +53,13 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
         }
     }
 
+    public void SleepFor(int timeToSleep) throws InterruptedException{
+        for(int i = timeToSleep; i > 0; --i){
+            System.out.print("Sleeping for " + i + " seconds\n");
+            Thread.sleep(1000);
+        }
+    }
+
     @Test
     public void testConnectionHandling() throws ExecutionException, InterruptedException, IOException, TimeoutException {
         SocketOptions socketOptions = new SocketOptions();
@@ -102,7 +109,8 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
         System.out.print("\n\nServer Started\n\n");
 
         final ClientConnection[] clientConnectionArray = new ClientConnection[100];
-        // CompletableFuture<Void>[] connectFutures = new CompletableFuture<Void>[100];
+
+        SleepFor(30);
 
         CreateConnections(clientConnectionArray, socketOptions, clientBootstrap);
 
@@ -118,10 +126,7 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
 
         System.out.print("\nConnections completed\n");
 
-        for(int i = 10; i > 0; --i){
-            System.out.print("\nSleeping for " + i + " seconds");
-            Thread.sleep(1000);
-        }
+        SleepFor(30);
 
         CloseConnections(clientConnectionArray);
 
@@ -135,10 +140,7 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
         }
         System.out.print("\nAll Connections Closed\n");
 
-        for(int i = 30; i > 0; --i){
-            System.out.print("\nSleeping for " + i + " seconds");
-            Thread.sleep(1000);
-        }
+        SleepFor(30);
 
         CreateConnections(clientConnectionArray, socketOptions, clientBootstrap);
 
@@ -152,12 +154,11 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
             }
         }
 
-        for(int i = 30; i > 0; --i){
-            System.out.print("\nSleeping for " + i + " seconds");
-            Thread.sleep(1000);
-        }
+        SleepFor(30);
 
         CloseConnections(clientConnectionArray);
+
+        SleepFor(30);
 
         // CLEAN UP TEST //
 
