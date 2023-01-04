@@ -131,7 +131,7 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
                     private ServerConnectionHandler connectionHandler = null;
 
                     public ServerConnectionHandler onNewConnection(ServerConnection serverConnection, int errorCode) {
-                        System.out.print("\nNew Connection Started with index:" + connectionIndex + " \n");
+                        // System.out.print("\nNew Connection Started with index:" + connectionIndex + " \n");
                         serverConnections[connectionIndex] = serverConnection;
                         connectionIndex++;
                         connectionCount++;
@@ -155,7 +155,7 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
                     }
 
                     public void onConnectionShutdown(ServerConnection serverConnection, int errorCode) {
-                        System.out.print("\nConnection " + connectionCount + " Shutdown\n");
+                        // System.out.print("\nConnection " + connectionCount + " Shutdown\n");
                         connectionCount--;
                     }
 
