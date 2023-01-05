@@ -169,7 +169,7 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
         System.out.print("\nSleeping for 30 seconds to get baseline reading");
         SleepFor(30);
 
-        for (int i = 0; i < 500; ++i) {
+        for (int i = 0; i < 10000; ++i) {
             System.out.print("\nConnectioncycle() " + i + "Starting.");
             ConnectionCycle(clientConnectionArray, socketOptions, clientBootstrap);
             System.out.print("\nConnectioncycle() " + i + "Completed.");
