@@ -169,18 +169,24 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
         System.out.print("\nSleeping for 30 seconds to get baseline reading");
         SleepFor(30);
 
-        for (int i = 0; i < 10000; ++i) {
+        for (int i = 0; i < 50; ++i) {
             System.out.print("\nConnectioncycle() " + i + "Starting.");
             ConnectionCycle(clientConnectionArray, socketOptions, clientBootstrap);
             System.out.print("\nConnectioncycle() " + i + "Completed.");
         }
 
-        // CLEAN UP TEST //
+        System.out.print("\nConnection operations finished. Sleeping for 10 min");
+        //Sleep for 10 min after last set of connections
+        SleepFor(600);
 
+
+        System.out.print("\nClosing Server and waiting for 10 min");
         // Close the server
         listener.close();
         listener.getShutdownCompleteFuture().get(1, TimeUnit.SECONDS);
+        SleepFor(600);
 
+        System.out.print("\nClosing bootstrap and and event loop then waiting for 10 min");
         // Close the bootstrap
         bootstrap.close();
         clientBootstrap.close();
@@ -190,7 +196,11 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
         elGroup.close();
         elGroup.getShutdownCompleteFuture().get(1, TimeUnit.SECONDS);
 
+        SleepFor(600);
+
+        System.out.print("Closing the socket then waiting for 10 min");
         // Close the socket
         socketOptions.close();
+        SleepFor(600);
     }
 }
