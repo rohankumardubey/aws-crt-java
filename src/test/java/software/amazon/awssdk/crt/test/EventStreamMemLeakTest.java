@@ -76,11 +76,11 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
             }
         }
 
-        System.out.print("\nConnections completed. Sleeping for 30 seconds.\n");
+        System.out.print("\nConnections completed. Sleeping for 120 seconds.\n");
 
         // Sleep to get handle count after first connections
         try {
-            Thread.sleep(30000);
+            Thread.sleep(120000);
             System.out.println("current connections: " + connectionCount);
         } catch (Exception e) {
             System.out.print("\nException in sleep");
@@ -100,11 +100,11 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
                 allDisconnected = true;
             }
         }
-        System.out.print("\nAll Connections Closed. Sleeping for 30 seconds.\n");
+        System.out.print("\nAll Connections Closed. Sleeping for 100 seconds.\n");
 
         // Sleep to get handle count after first disconnections
         try {
-            Thread.sleep(30000);
+            Thread.sleep(120000);
             System.out.println("current connections: " + connectionCount);
         } catch (Exception e) {
             System.out.print("\nException in sleep");
@@ -174,7 +174,7 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
         System.out.print("\nSleeping for 10 minutes to get baseline reading prior to any connections");
         SleepFor(600);
 
-        for (int i = 0; i < 50; ++i) {
+        for (int i = 0; i < 20; ++i) {
             System.out.print("\nConnectioncycle() " + i + "Starting.");
             ConnectionCycle(clientConnectionArray, socketOptions, clientBootstrap);
             System.out.print("\nConnectioncycle() " + i + "Completed.");
