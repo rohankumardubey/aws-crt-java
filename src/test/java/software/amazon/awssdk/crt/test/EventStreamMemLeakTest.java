@@ -114,6 +114,10 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
     @Test
     public void testConnectionHandling()
             throws ExecutionException, InterruptedException, IOException, TimeoutException {
+
+        System.out.print("\nSleeping for 10 minutes to get baseline reading");
+        SleepFor(600);
+
         SocketOptions socketOptions = new SocketOptions();
         socketOptions.connectTimeoutMs = 3000;
         socketOptions.domain = SocketOptions.SocketDomain.IPv4;
@@ -131,7 +135,8 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
                     private ServerConnectionHandler connectionHandler = null;
 
                     public ServerConnectionHandler onNewConnection(ServerConnection serverConnection, int errorCode) {
-                        // System.out.print("\nNew Connection Started with index:" + connectionIndex + " \n");
+                        // System.out.print("\nNew Connection Started with index:" + connectionIndex + "
+                        // \n");
                         serverConnections[connectionIndex] = serverConnection;
                         connectionIndex++;
                         connectionCount++;
@@ -166,8 +171,8 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
         final ClientConnection[] clientConnectionArray = new ClientConnection[100];
 
         // Sleep to get baseline handle count
-        System.out.print("\nSleeping for 30 seconds to get baseline reading");
-        SleepFor(30);
+        System.out.print("\nSleeping for 10 minutes to get baseline reading prior to any connections");
+        SleepFor(600);
 
         for (int i = 0; i < 50; ++i) {
             System.out.print("\nConnectioncycle() " + i + "Starting.");
@@ -176,9 +181,8 @@ public class EventStreamMemLeakTest extends CrtTestFixture {
         }
 
         System.out.print("\nConnection operations finished. Sleeping for 10 min");
-        //Sleep for 10 min after last set of connections
+        // Sleep for 10 min after last set of connections
         SleepFor(600);
-
 
         System.out.print("\nClosing Server and waiting for 10 min");
         // Close the server
